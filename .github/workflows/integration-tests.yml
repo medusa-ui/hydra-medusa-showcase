@@ -1,0 +1,148 @@
+# Integration tests from Hydra and Medusa
+
+name: Hydra Medusa Showcase with integration tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  medusa-hydra-checkout:
+    name: Medusa and Hydra dependency
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Medusa Repository
+        uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: 21
+          cache: maven
+      - name: Build and Install Medusa-UI
+        id: medusa
+        run: |
+          git clone https://github.com/medusa-ui/medusa.git
+          # optionally checkout a branch
+          cd medusa/medusa-ui
+          mvn clean install --no-transfer-progress
+      - name: Build and Install Hydra
+        id: hydra
+        run: |
+          git clone https://github.com/medusa-ui/hydra.git
+          # optionally checkout a branch
+          cd hydra/hydra
+          mvn clean install --no-transfer-progress
+
+  containerize:
+    name: Containerize the applications
+    runs-on: ubuntu-latest
+    needs: medusa-hydra-checkout
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: 21
+          cache: maven
+      - name: Hydra One
+        run: |
+          cd ./hydra.one 
+          mvn clean install --no-transfer-progress
+      - name: Build container
+        id: hydra_one_image
+        uses: docker/build-push-action@v5
+        with:
+          context: hydra.one
+          push: false
+          load: true
+          tags: hydra.one:LATEST
+          cache-from: type=registry,ref=hydra.one:LATEST
+          cache-to: type=inline
+      - name: Start Container
+        run: |
+          docker run --rm -d -p8080:8080 -p7770:7770 --name hydra_one hydra.one:LATEST
+          HYDRA_ONE_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' hydra_one)
+          echo "HYDRA_ONE_IP=$HYDRA_ONE_IP" >> "$GITHUB_ENV"
+          echo "IP hydra.one: $HYDRA_ONE_IP"
+
+      - name: Medusa One
+        run: |
+          cd ./medusa.one 
+          mvn clean install -DHYDRA_SERVER=$HYDRA_ONE_IP --no-transfer-progress
+      - name: Build container
+        id: medusa_one_image
+        uses: docker/build-push-action@v5
+        with:
+          context: medusa.one
+          push: false
+          load: true
+          tags: medusa.one:LATEST
+          cache-from: type=registry,ref=medusa.one:LATEST
+          cache-to: type=inline
+      - name: Start Container
+        run: |
+          docker run --rm -d -p8881:8881 -p7771:7771 --name medusa_one medusa.one:LATEST
+          MEDUSA_ONE_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' medusa_one)
+          echo "MEDUSA_ONE_IP=$MEDUSA_ONE_IP" >> "$GITHUB_ENV"
+          echo "IP medusa.one: $MEDUSA_ONE_IP"
+
+      - name: Medusa Two
+        run: |
+          cd ./medusa.two 
+          mvn clean install -DHYDRA_SERVER=$HYDRA_ONE_IP --no-transfer-progress
+      - name: Build container
+        id: medusa_two_image
+        uses: docker/build-push-action@v5
+        with:
+          context: medusa.two
+          push: false
+          load: true
+          tags: medusa.two:LATEST
+          cache-from: type=registry,ref=medusa.two:LATEST
+          cache-to: type=inline
+      - name: Start Container
+        run: |
+          docker run --rm -d -p8882:8882 -p7772:7772 --name medusa_two medusa.two:LATEST
+          MEDUSA_TWO_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' medusa_two)
+          echo "MEDUSA_TWO_IP=$MEDUSA_TWO_IP" >> "$GITHUB_ENV"
+          echo "IP medusa.two: $MEDUSA_TWO_IP"
+
+      - name: Medusa Three
+        run: |
+          cd ./medusa.three 
+          mvn clean install -DHYDRA_SERVER=$HYDRA_ONE_IP --no-transfer-progress
+      - name: Build container
+        id: medusa_three_image
+        uses: docker/build-push-action@v5
+        with:
+          context: medusa.three
+          push: false
+          load: true
+          tags: medusa.three:LATEST
+          cache-from: type=registry,ref=medusa.three:LATEST
+          cache-to: type=inline
+      - name: Start Container
+        run: |
+          docker run --rm -d -p8883:8883 -p7773:7773 --name medusa_three medusa.three:LATEST
+          MEDUSA_THREE_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' medusa_three)
+          echo "MEDUSA_THREE_IP=$MEDUSA_THREE_IP" >> "$GITHUB_ENV"
+          echo "IP medusa.three: $MEDUSA_THREE_IP"
+
+      - name: CURL services
+        run: |
+          docker ps
+          echo "medusa.one: $(curl --silent --show-error --retry 5 --retry-connrefused --retry-delay 10 http://$MEDUSA_ONE_IP:8881/actuator/health)"
+          echo "medusa.two: $(curl --silent --show-error --retry 5 --retry-connrefused --retry-delay 10 http://$MEDUSA_TWO_IP:8882/actuator/health)"
+          echo "medusa.three: $(curl --silent --show-error --retry 5 --retry-connrefused --retry-delay 10 http://$MEDUSA_THREE_IP:8883/actuator/health)"
+          echo "hydra.one one: $(curl --silent --show-error --retry 5 --retry-connrefused --retry-delay 10 http://$HYDRA_ONE_IP:8080/actuator/health)"
+
+      - name: Verify integration tests with Maven
+        working-directory: ./tests
+        run: mvn -B -DHYDRA_ONE_OP=$HYDRA_ONE_IP -DMEDUSA_ONE_OP=$MEDUSA_ONE_IP -DMEDUSA_TWO_OP=$MEDUSA_TWO_IP -DMEDUSA_THREE_OP=$MEDUSA_THREE_IP -Dselenide.headless=true verify --file pom.xml
+        
