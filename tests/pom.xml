@@ -17,6 +17,7 @@
 		<java.version>19</java.version>
 		<selenide.version>6.18.0</selenide.version>
 		<selenium.version>4.12.1</selenium.version>
+		<webdriver.version>5.5.3</webdriver.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,6 +37,12 @@
 		</dependency>
 
         <!-- integration tests  -->
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>${webdriver.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.codeborne</groupId>
 			<artifactId>selenide</artifactId>

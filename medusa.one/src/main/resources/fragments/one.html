@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:m="http://www.getmedusa.io" >
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments</title>
+</head>
+<body>
+
+   <div m:ref="one_hello">
+        <div>One Application: A simple Fragment message: <span th:text="${message}"> Hello </span></div>
+    </div>
+
+    <div m:ref="one_counter">
+        <div><h3>One Application: A Fragment Counter: <span th:text="${one_counter}"> counter </span> </h3></div>
+        <div><button m:click="oneCounter()">Increment Counter</button></div>
+    </div>
+
+    <div m:ref="one_session_counter">
+        <div><h3>One Application: A Fragment Session Counter: <span th:text="${sessionCounter}"> counter </span> </h3></div>
+        <div><button m:click="oneSessionCounter()">Increment Counter</button></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:m="http://www.getmedusa.io" >
+<head>
+    <meta charset="UTF-8">
+    <title>Counters</title>
+</head>
+<body>
+<h3>Fragment Counters</h3>
+<div>
+    <h3>One</h3>
+    <m:fragment ref="one_counter" service="one" >
+        <p> counter one down </p>
+    </m:fragment>
+</div>
+<div>
+    <h3>Two</h3>
+    <m:fragment ref="two_counter" service="two" >
+        <p> counter two down </p>
+    </m:fragment>
+</div>
+<div>
+    <h3>Three</h3>
+    <m:fragment ref="three_counter" service="three" >
+        <p> counter three down </p>
+    </m:fragment>
+</div>
+</body>
+</html>
