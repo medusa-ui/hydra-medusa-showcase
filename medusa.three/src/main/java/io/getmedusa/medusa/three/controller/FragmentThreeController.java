@@ -26,13 +26,13 @@ public class FragmentThreeController {
         session.getLastParameters().add($("sessionCounter", sessionCounter));
         return $$(
                     $("message", message),
-                    $("two_counter", counter ),
+                    $("three_counter", counter ),
                     $("sessionCounter", sessionCounter )
                 );
     }
 
     public List<Attribute> threeCounter(){
-        return $$( $("two_counter", ++ counter ) );
+        return $$( $("three_counter", ++ counter ) );
     }
 
     public List<Attribute> threeSessionCounter(Session session){

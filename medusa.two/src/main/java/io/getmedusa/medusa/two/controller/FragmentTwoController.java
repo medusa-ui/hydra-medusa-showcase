@@ -3,6 +3,7 @@ package io.getmedusa.medusa.two.controller;
 import io.getmedusa.medusa.core.annotation.UIEventPage;
 import io.getmedusa.medusa.core.attributes.Attribute;
 import io.getmedusa.medusa.core.session.Session;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 import java.util.List;
 
@@ -26,13 +27,14 @@ public class FragmentTwoController {
         session.getLastParameters().add($("sessionCounter", sessionCounter));
         return $$(
                     $("message", message),
-                    $("three_counter", counter ),
+                    $("two_counter", counter ),
                     $("sessionCounter", sessionCounter )
                 );
     }
 
+    @WithSpan
     public List<Attribute> twoCounter(){
-        return $$( $("three_counter", ++ counter ) );
+        return $$( $("two_counter", ++ counter ) );
     }
 
     public List<Attribute> twoSessionCounter(Session session){
