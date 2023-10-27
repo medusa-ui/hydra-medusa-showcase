@@ -17,6 +17,10 @@
 			<groupId>io.getmedusa</groupId>
 			<artifactId>hydra</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry.instrumentation</groupId>
+			<artifactId>opentelemetry-instrumentation-annotations</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
