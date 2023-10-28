@@ -10,7 +10,7 @@ on:
 
 env:
   HYDRA_BRANCH: main
-  MEDUSA_BRANCH: origin/rewrite-1.0.0
+  MEDUSA_BRANCH: main
 
 jobs:
   medusa-hydra-checkout:
