@@ -10,7 +10,7 @@ on:
 
 env:
   HYDRA_BRANCH: main
-  MEDUSA_BRANCH: rewrite-1.0.0
+  MEDUSA_BRANCH: main
 
 jobs:
   medusa-hydra-checkout:
@@ -29,7 +29,7 @@ jobs:
         id: medusa
         run: |
           git clone https://github.com/medusa-ui/medusa.git
-          git branch
+          echo "$(git branch -vv)"
           git checkout $MEDUSA_BRANCH
           cd medusa/medusa-ui
           mvn clean install --no-transfer-progress
@@ -37,7 +37,7 @@ jobs:
         id: hydra
         run: |
           git clone https://github.com/medusa-ui/hydra.git
-          git branch
+          echo "$(git branch -vv)"
           git checkout $HYDRA_BRANCH
           cd hydra/hydra
           mvn clean install --no-transfer-progress
