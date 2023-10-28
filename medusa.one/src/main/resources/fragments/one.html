@@ -11,8 +11,8 @@
     </div>
 
     <div m:ref="one_counter">
-        <div><h3>One Application: A Fragment Counter: <span th:text="${one_counter}"> counter </span> </h3></div>
-        <div><button m:click="oneCounter()">Increment Counter</button></div>
+        <div><h3>One Application: A Fragment Counter: <span id="txt_one_counter" th:text="${one_counter}"> counter </span> </h3></div>
+        <div><button id="btn_one_counter" m:click="oneCounter()">Increment Counter</button></div>
     </div>
 
     <div m:ref="one_session_counter">

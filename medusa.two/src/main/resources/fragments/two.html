@@ -10,8 +10,8 @@
     </div>
 
     <div m:ref="two_counter">
-        <div><h3>Two Application: A Fragment Counter: <span th:text="${two_counter}"> counter </span> </h3></div>
-        <div><button m:click="twoCounter()">Increment Counter</button></div>
+        <div><h3>Two Application: A Fragment Counter: <span id="txt_two_counter" th:text="${two_counter}"> counter </span> </h3></div>
+        <div><button id="btn_two_counter" m:click="twoCounter()">Increment Counter</button></div>
     </div>
 
     <div m:ref="two_session_counter">
