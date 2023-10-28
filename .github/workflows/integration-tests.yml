@@ -10,33 +10,37 @@ on:
 
 env:
   HYDRA_BRANCH: main
-  MEDUSA_BRANCH: origin/rewrite-1.0.0
+  MEDUSA_BRANCH: rewrite-1.0.0
 
 jobs:
   medusa-hydra-checkout:
     name: Medusa and Hydra dependency
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Medusa Repository
-        uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
           java-version: 21
           cache: maven
+      - name: Checkout Medusa Repository
+        uses: actions/checkout@v4
+        with:
+          repository: medusa-ui/medusa
+          ref: $MEDUSA_BRANCH
       - name: Build and Install Medusa-UI
         id: medusa
         run: |
-          git clone https://github.com/medusa-ui/medusa.git
-          git checkout $MEDUSA_BRANCH
           cd medusa/medusa-ui
           mvn clean install --no-transfer-progress
+      - name: Checkout Hydra Repository
+        uses: actions/checkout@v4
+        with:
+          repository: medusa-ui/hydra
+          ref: $HYDRA_BRANCH    
       - name: Build and Install Hydra
         id: hydra
         run: |
-          git clone https://github.com/medusa-ui/hydra.git
-          git checkout $HYDRA_BRANCH
           cd hydra/hydra
           mvn clean install --no-transfer-progress
 
