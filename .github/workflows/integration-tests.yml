@@ -10,7 +10,7 @@ on:
 
 env:
   HYDRA_BRANCH: main
-  MEDUSA_BRANCH: main
+  MEDUSA_BRANCH: feature/import-export-hydra
 
 jobs:
   medusa-hydra-checkout:
