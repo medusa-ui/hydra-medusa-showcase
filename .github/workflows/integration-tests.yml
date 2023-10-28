@@ -17,17 +17,17 @@ jobs:
     name: Medusa and Hydra dependency
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Medusa Repository
+        uses: actions/checkout@v4
+        with:
+          repository: medusa-ui/medusa
+          ref: $MEDUSA_BRANCH
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
           java-version: 21
           cache: maven
-      - name: Checkout Medusa Repository
-        uses: actions/checkout@v4
-        with:
-          repository: medusa-ui/medusa
-          ref: $MEDUSA_BRANCH
       - name: Build and Install Medusa-UI
         id: medusa
         run: |
@@ -37,7 +37,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: medusa-ui/hydra
-          ref: $HYDRA_BRANCH    
+          ref: $HYDRA_BRANCH
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: 21
+          cache: maven    
       - name: Build and Install Hydra
         id: hydra
         run: |
@@ -153,4 +159,4 @@ jobs:
       - name: Verify integration tests with Maven
         working-directory: ./tests
         run: mvn -B -DHYDRA_ONE_OP=$HYDRA_ONE_IP -DMEDUSA_ONE_OP=$MEDUSA_ONE_IP -DMEDUSA_TWO_OP=$MEDUSA_TWO_IP -DMEDUSA_THREE_OP=$MEDUSA_THREE_IP -Dselenide.headless=true -Dselenide.browser=chrome verify --file pom.xml
-        
+
