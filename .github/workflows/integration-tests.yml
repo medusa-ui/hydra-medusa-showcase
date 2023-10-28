@@ -9,8 +9,8 @@ on:
     branches: [ "main" ]
 
 env:
-  HYDRA_BRANCH: main
-  MEDUSA_BRANCH: feature/import-export-hydra
+  HYDRA_BRANCH: remotes/origin/main
+  MEDUSA_BRANCH: remotes/origin/feature/import-export-hydra
 
 jobs:
   medusa-hydra-checkout:
@@ -29,14 +29,14 @@ jobs:
         id: medusa
         run: |
           git clone https://github.com/medusa-ui/medusa.git
-          git checkout -t -b medusa-for-test $MEDUSA_BRANCH
+          git switch -c $MEDUSA_BRANCH
           cd medusa/medusa-ui
           mvn clean install --no-transfer-progress
       - name: Build and Install Hydra
         id: hydra
         run: |
           git clone https://github.com/medusa-ui/hydra.git
-          git checkout -t -b hydra-for-test $HYDRA_BRANCH
+          git switch -c $HYDRA_BRANCH
           cd hydra/hydra
           mvn clean install --no-transfer-progress
 
