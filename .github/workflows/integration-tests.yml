@@ -19,9 +19,6 @@ jobs:
     steps:
       - name: Checkout Medusa Repository
         uses: actions/checkout@v4
-        with:
-          repository: medusa-ui/medusa
-          ref: $MEDUSA_BRANCH
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
@@ -31,22 +28,17 @@ jobs:
       - name: Build and Install Medusa-UI
         id: medusa
         run: |
+          git clone https://github.com/medusa-ui/medusa.git
+          git branch
+          git checkout $MEDUSA_BRANCH
           cd medusa/medusa-ui
           mvn clean install --no-transfer-progress
-      - name: Checkout Hydra Repository
-        uses: actions/checkout@v4
-        with:
-          repository: medusa-ui/hydra
-          ref: $HYDRA_BRANCH
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'corretto'
-          java-version: 21
-          cache: maven    
       - name: Build and Install Hydra
         id: hydra
         run: |
+          git clone https://github.com/medusa-ui/hydra.git
+          git branch
+          git checkout $HYDRA_BRANCH
           cd hydra/hydra
           mvn clean install --no-transfer-progress
 
@@ -159,4 +151,4 @@ jobs:
       - name: Verify integration tests with Maven
         working-directory: ./tests
         run: mvn -B -DHYDRA_ONE_OP=$HYDRA_ONE_IP -DMEDUSA_ONE_OP=$MEDUSA_ONE_IP -DMEDUSA_TWO_OP=$MEDUSA_TWO_IP -DMEDUSA_THREE_OP=$MEDUSA_THREE_IP -Dselenide.headless=true -Dselenide.browser=chrome verify --file pom.xml
-
+        
