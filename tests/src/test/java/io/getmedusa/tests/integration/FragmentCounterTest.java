@@ -1,6 +1,5 @@
 package io.getmedusa.tests.integration;
 
-import com.codeborne.selenide.WebDriverRunner;
 import io.getmedusa.meta.SelenideIntegrationTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -55,9 +54,6 @@ public class FragmentCounterTest extends SelenideIntegrationTest {
     }
 
     private  void allTemplatesShouldBeRendered() {
-
-        System.out.println(WebDriverRunner.getWebDriver().getPageSource());
-
         $("#txt_one_counter").shouldBe(visible);
         $("#btn_one_counter").shouldBe(visible);
 

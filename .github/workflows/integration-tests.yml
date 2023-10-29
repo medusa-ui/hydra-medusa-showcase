@@ -148,5 +148,4 @@ jobs:
 
       - name: Verify integration tests with Maven
         working-directory: ./tests
-        run: mvn -B -DHYDRA_ONE_OP=$HYDRA_ONE_IP -DMEDUSA_ONE_OP=$MEDUSA_ONE_IP -DMEDUSA_TWO_OP=$MEDUSA_TWO_IP -DMEDUSA_THREE_OP=$MEDUSA_THREE_IP -Dselenide.headless=true -Dselenide.browser=chrome verify --file pom.xml
-        
+        run: mvn -B -DHYDRA_ONE=$HYDRA_ONE_IP -DMEDUSA_ONE=$MEDUSA_ONE_IP -DMEDUSA_TWO=$MEDUSA_TWO_IP -DMEDUSA_THREE=$MEDUSA_THREE_IP -Dselenide.headless=true -Dselenide.browser=chrome verify --file pom.xml
