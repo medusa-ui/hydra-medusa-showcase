@@ -31,7 +31,6 @@ jobs:
           git clone https://github.com/medusa-ui/medusa.git
           cd medusa
           git checkout -b medusa_for_test $MEDUSA_ORIGIN_BRANCH
-          echo "cloned Medusa, checked out branch: ${ git branch }"
           cd medusa-ui
           mvn clean install --no-transfer-progress
       - name: Build and Install Hydra
@@ -40,7 +39,6 @@ jobs:
           git clone https://github.com/medusa-ui/hydra.git
           cd hydra
           git checkout -b hydra_for_test $HYDRA_ORIGIN_BRANCH
-          echo "cloned Hydra, checked out branch: ${ git branch }"
           cd hydra
           mvn clean install --no-transfer-progress
 
