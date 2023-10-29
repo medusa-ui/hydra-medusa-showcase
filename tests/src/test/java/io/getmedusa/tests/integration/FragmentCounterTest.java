@@ -3,12 +3,16 @@ package io.getmedusa.tests.integration;
 import io.getmedusa.meta.SelenideIntegrationTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class FragmentCounterTest extends SelenideIntegrationTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(FragmentCounterTest.class);
 
     @Test
     void increaseOneCounterViaHydra() {
@@ -55,7 +59,7 @@ public class FragmentCounterTest extends SelenideIntegrationTest {
     }
 
     private  void allTemplatesShouldBeRendered() {
-        System.out.println($$("div").texts());
+        logger.debug("{}", $$("div").texts());
         $("#txt_one_counter").shouldBe(visible);
         $("#btn_one_counter").shouldBe(visible);
 
