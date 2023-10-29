@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class FragmentCounterTest extends SelenideIntegrationTest {
 
@@ -54,6 +55,7 @@ public class FragmentCounterTest extends SelenideIntegrationTest {
     }
 
     private  void allTemplatesShouldBeRendered() {
+        System.out.println($$("div").texts());
         $("#txt_one_counter").shouldBe(visible);
         $("#btn_one_counter").shouldBe(visible);
 
