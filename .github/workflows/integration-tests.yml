@@ -29,17 +29,15 @@ jobs:
         id: medusa
         run: |
           git clone https://github.com/medusa-ui/medusa.git
-          cd medusa
+          cd medusa/medusa-ui
           git checkout -b medusa_for_test $MEDUSA_ORIGIN_BRANCH
-          cd medusa-ui
           mvn clean install --no-transfer-progress
       - name: Build and Install Hydra
         id: hydra
         run: |
           git clone https://github.com/medusa-ui/hydra.git
-          cd hydra
+          cd hydra/hydra
           git checkout -b hydra_for_test $HYDRA_ORIGIN_BRANCH
-          cd hydra
           mvn clean install --no-transfer-progress
 
   test-with-docker:
