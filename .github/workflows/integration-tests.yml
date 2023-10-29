@@ -91,7 +91,7 @@ jobs:
           cache-to: type=inline
       - name: Start Container
         run: |
-          docker run --rm -d -p8881:8881 -p7771:7771 --name medusa_one medusa.one:LATEST
+          docker run --rm -d -eHYDRA_SERVER=$HYDRA_ONE_IP -p8881:8881 -p7771:7771 --name medusa_one medusa.one:LATEST
           MEDUSA_ONE_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' medusa_one)
           echo "MEDUSA_ONE_IP=$MEDUSA_ONE_IP" >> "$GITHUB_ENV"
           echo "IP medusa.one: $MEDUSA_ONE_IP"
@@ -112,7 +112,7 @@ jobs:
           cache-to: type=inline
       - name: Start Container
         run: |
-          docker run --rm -d -p8882:8882 -p7772:7772 --name medusa_two medusa.two:LATEST
+          docker run --rm -d -eHYDRA_SERVER=$HYDRA_ONE_IP -p8882:8882 -p7772:7772 --name medusa_two medusa.two:LATEST
           MEDUSA_TWO_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' medusa_two)
           echo "MEDUSA_TWO_IP=$MEDUSA_TWO_IP" >> "$GITHUB_ENV"
           echo "IP medusa.two: $MEDUSA_TWO_IP"
@@ -133,7 +133,7 @@ jobs:
           cache-to: type=inline
       - name: Start Container
         run: |
-          docker run --rm -d -p8883:8883 -p7773:7773 --name medusa_three medusa.three:LATEST
+          docker run --rm -d -eHYDRA_SERVER=$HYDRA_ONE_IP -p8883:8883 -p7773:7773 --name medusa_three medusa.three:LATEST
           MEDUSA_THREE_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' medusa_three)
           echo "MEDUSA_THREE_IP=$MEDUSA_THREE_IP" >> "$GITHUB_ENV"
           echo "IP medusa.three: $MEDUSA_THREE_IP"
