@@ -7,6 +7,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron: '30 3 * * *'
 
 env:
   HYDRA_ORIGIN_BRANCH: origin/feature/import-export-hydra
