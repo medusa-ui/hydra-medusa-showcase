@@ -15,7 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>19</java.version>
-		<selenide.version>6.18.0</selenide.version>
+		<selenide.version>7.0.2</selenide.version>
 		<selenium.version>4.12.1</selenium.version>
 		<webdriver.version>5.5.3</webdriver.version>
 	</properties>
