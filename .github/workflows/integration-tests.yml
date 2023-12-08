@@ -11,8 +11,10 @@ on:
     - cron: '30 3 * * *'
 
 env:
-  HYDRA_ORIGIN_BRANCH: origin/feature/import-export-hydra
-  MEDUSA_ORIGIN_BRANCH: origin/feature/import-export-hydra
+  HYDRA_ORIGIN_BRANCH: origin/rewrite-1.0.0
+  MEDUSA_ORIGIN_BRANCH: origin/rewrite-1.0.0
+#  HYDRA_ORIGIN_BRANCH: origin/feature/import-export-hydra
+#  MEDUSA_ORIGIN_BRANCH: origin/feature/import-export-hydra
 
 jobs:
   medusa-hydra-checkout:
