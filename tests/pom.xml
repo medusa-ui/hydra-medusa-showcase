@@ -16,7 +16,8 @@
 	<properties>
 		<java.version>19</java.version>
 		<selenide.version>7.0.3</selenide.version>
-		<selenium.version>4.12.1</selenium.version>
+		<selenium-java.version>4.12.1</selenium-java.version>
+		<selenium-http-jdk-client.version>4.12.1</selenium-http-jdk-client.version>
 		<webdriver.version>5.6.2</webdriver.version>
 	</properties>
 	<dependencies>
@@ -52,13 +53,13 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>${selenium.version}</version>
+			<version>${selenium-java.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-http-jdk-client</artifactId>
-			<version>${selenium.version}</version>
+			<version>${selenium-http-jdk-client.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
