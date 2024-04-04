@@ -18,7 +18,7 @@
 		<selenide.version>7.2.3</selenide.version>
 		<selenium-java.version>4.19.1</selenium-java.version>
 		<selenium-http-jdk-client.version>4.13.0</selenium-http-jdk-client.version>
-		<webdriver.version>5.7.0</webdriver.version>
+		<webdriver.version>5.8.0</webdriver.version>
 	</properties>
 	<dependencies>
 		<dependency>
