@@ -19,7 +19,7 @@
         <spring-cloud.version>2023.0.1</spring-cloud.version>
         <hydra.version>0.0.1-SNAPSHOT</hydra.version>
         <medusa.version>0.9.6-SNAPSHOT</medusa.version>
-        <opentelemetry.version>1.32.0</opentelemetry.version>
+        <opentelemetry.version>2.3.0</opentelemetry.version>
     </properties>
 
     <modules>
