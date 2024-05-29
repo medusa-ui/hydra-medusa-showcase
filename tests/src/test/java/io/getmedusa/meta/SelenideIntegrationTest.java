@@ -2,7 +2,6 @@ package io.getmedusa.meta;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.junit5.TextReportExtension;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -22,17 +21,13 @@ public abstract class SelenideIntegrationTest {
     @Autowired
     protected Applications applications;
 
-    @BeforeAll /* use application.properties to set selenide.headless=false or selenide.browser */
-    static void setup( @Value("${selenide.headless:true}") Boolean headless, @Value("${selenide.browser:chrome}") String browser) {
-        switch (browser) {
-            case "chrome"   ->  WebDriverManager.chromedriver().setup();
-            case "firefox"  -> WebDriverManager.firefoxdriver().setup();
-            case "edge"     -> WebDriverManager.edgedriver().setup();
-            default         -> WebDriverManager.chromiumdriver().setup();
-        }
-        Configuration.headless = headless;
-        Configuration.screenshots = false;
-        Configuration.browser = browser;
+    @BeforeAll
+    static void setup(@Value("${selenide.headless:true}") Boolean headless,
+                      @Value("${selenide.screenshots:false}") Boolean screenshots,
+                      @Value("${selenide.browser:chrome}") String browser) {
+        Configuration.headless=headless;
+        Configuration.screenshots=screenshots;
+        Configuration.browser=browser;
         logger.info("Configuration Selenide done");
     }
 
