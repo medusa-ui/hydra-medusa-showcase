@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
+		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.getmedusa</groupId>
@@ -39,12 +39,6 @@
 
         <!-- integration tests  -->
 		<dependency>
-			<groupId>io.github.bonigarcia</groupId>
-			<artifactId>webdrivermanager</artifactId>
-			<version>${webdriver.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.codeborne</groupId>
 			<artifactId>selenide</artifactId>
 			<version>${selenide.version}</version>
@@ -53,13 +47,6 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>${selenium-java.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-http-jdk-client</artifactId>
-			<version>${selenium-http-jdk-client.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -3,7 +3,6 @@ package io.getmedusa.medusa.one.controller;
 import io.getmedusa.medusa.core.annotation.UIEventPage;
 import io.getmedusa.medusa.core.attributes.Attribute;
 import io.getmedusa.medusa.core.session.Session;
-import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class FragmentOneController {
                     $("sessionCounter", sessionCounter )
                 );
     }
-    @WithSpan
+
     public List<Attribute> oneCounter(){
         return $$( $("one_counter", ++ counter ) );
     }
