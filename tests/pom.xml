@@ -14,7 +14,7 @@
 	<name>tests</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>19</java.version>
+		<java.version>21</java.version>
 		<selenide.version>7.4.0</selenide.version>
 	</properties>
 	<dependencies>
