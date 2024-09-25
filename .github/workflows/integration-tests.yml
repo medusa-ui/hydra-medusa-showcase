@@ -12,7 +12,7 @@ on:
 
 env:
   HYDRA_ORIGIN_BRANCH: origin/rewrite-1.0.0
-  MEDUSA_ORIGIN_BRANCH: origin/rewrite-1.0.0
+  MEDUSA_ORIGIN_BRANCH: origin/main
 
 #  HYDRA_ORIGIN_BRANCH: origin/feature/import-export-hydra
 #  MEDUSA_ORIGIN_BRANCH: origin/feature/import-export-hydra
