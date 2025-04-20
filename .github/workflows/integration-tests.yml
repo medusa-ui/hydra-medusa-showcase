@@ -19,7 +19,7 @@ env:
 
 jobs:
   medusa-hydra-checkout:
-    name: Medusa and Hydra dependency
+    name: Hydra Medusa Showcase with integration tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Medusa Repository
