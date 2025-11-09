@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '30 3 * * *'
+    - cron: '30 3 * * 0'
 
 env:
   HYDRA_ORIGIN_BRANCH: origin/rewrite-1.0.0
